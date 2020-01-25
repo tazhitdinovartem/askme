@@ -11,17 +11,13 @@ class User < ApplicationRecord
   
   has_many :questions
 
-  validates :username, presence: true, uniqueness: true, format: { with: USERNAME_VALIDATION_REGEXP, message: "Invalid Username" }, length: { maximum: 40 }
-  validates :email, presence: true, uniqueness: true, format: { with: EMAIL_VALIDATION_REGEXP, message: "Invalid e-mail" }, length: { maximum: 50 }
+  validates :username, presence: true, uniqueness: true, format: { with: USERNAME_VALIDATION_REGEXP }, length: { maximum: 40 }
+  validates :email, presence: true, uniqueness: true, format: { with: EMAIL_VALIDATION_REGEXP }, length: { maximum: 50 }
   validates :password, confirmation: true
 
+  before_validation :format_username_to_downcase, :format_email_to_downcase
   before_save :encrypt_password
-  before_validation :format_username_to_downcase
-
-  def format_username_to_downcase
-    self.username = username.downcase
-  end
-
+  
   def self.hash_to_string(password_hash)
     password_hash.unpack('H*')[0]
   end
@@ -42,5 +38,13 @@ class User < ApplicationRecord
         OpenSSL::PKCS5.pbkdf2_hmac(self.password, self.password_salt, ITERATIONS, DIGEST.length, DIGEST)
       )
     end
+  end
+
+  def format_email_to_downcase
+    self.email.downcase!
+  end
+
+  def format_username_to_downcase
+    self.username.downcase!
   end
 end
