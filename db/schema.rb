@@ -10,20 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_25_045218) do
+ActiveRecord::Schema.define(version: 2020_01_25_071806) do
 
-  create_table "questions", force: :cascade do |t|
-    t.string "text"
-    t.string "answer"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
+# Could not dump table "questions" because of following StandardError
+#   Unknown type 'refrences' for column 'user'
 
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "username"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "email"
+    t.string "password_hash"
+    t.string "password_salt"
+    t.string "avatar_url"
   end
 
 end
