@@ -1,7 +1,6 @@
 require 'openssl'
 
 class User < ApplicationRecord
-
   EMAIL_VALIDATION_REGEXP = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i;
   USERNAME_VALIDATION_REGEXP = /\A(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])\z/;
   ITERATIONS = 20000
@@ -11,12 +10,11 @@ class User < ApplicationRecord
   
   has_many :questions
 
-  validates :username, presence: true, uniqueness: true, format: { with: USERNAME_VALIDATION_REGEXP }, length: { maximum: 40 }
-  validates :email, presence: true, uniqueness: true, format: { with: EMAIL_VALIDATION_REGEXP }, length: { maximum: 50 }
+  validates :username, presence: true, uniqueness: { case_sensitive: false}, format: { with: USERNAME_VALIDATION_REGEXP }, length: { maximum: 40 }
+  validates :email, presence: true, uniqueness: { case_sensitive: false}, format: { with: EMAIL_VALIDATION_REGEXP }, length: { maximum: 50 }
   validates :password, confirmation: true
 
-  before_validation :format_username_to_downcase, :format_email_to_downcase
-  before_save :encrypt_password
+  before_save :encrypt_password, :format_username_to_downcase, :format_email_to_downcase
   
   def self.hash_to_string(password_hash)
     password_hash.unpack('H*')[0]
@@ -39,6 +37,8 @@ class User < ApplicationRecord
       )
     end
   end
+
+  private
 
   def format_email_to_downcase
     self.email.downcase!

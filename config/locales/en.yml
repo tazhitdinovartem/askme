@@ -31,8 +31,3 @@
 
 en:
   hello: "Hello world"
-en:
-  activerecord:
-    errors:
-      messages:
-        invalid: 'is invalid! God Damn!'
