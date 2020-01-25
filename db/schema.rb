@@ -10,10 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_25_071806) do
+ActiveRecord::Schema.define(version: 2020_01_25_080038) do
 
-# Could not dump table "questions" because of following StandardError
-#   Unknown type 'refrences' for column 'user'
+  create_table "questions", force: :cascade do |t|
+    t.string "text"
+    t.string "answer"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "user_id"
+    t.index ["user_id"], name: "index_questions_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "name"
@@ -26,4 +32,5 @@ ActiveRecord::Schema.define(version: 2020_01_25_071806) do
     t.string "avatar_url"
   end
 
+  add_foreign_key "questions", "users"
 end

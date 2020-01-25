@@ -1,5 +1,5 @@
 class AddUserToQuestion < ActiveRecord::Migration[6.0]
   def change
-    add_column :questions, :user, :refrences
+    add_reference :questions, :user, foreign_key: true
   end
 end
