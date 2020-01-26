@@ -11,7 +11,7 @@ class User < ApplicationRecord
   has_many :questions
 
   validates :username, presence: true, uniqueness: true, format: { with: USERNAME_VALIDATION_REGEXP }, length: { maximum: 40 }
-  validates :email, presence: true, uniqueness: true, format: { with: EMAIL_VALIDATION_REGEXP }, length: { maximum: 50 }
+  validates :email, presence: true, uniqueness: true, format: { with: EMAIL_VALIDATION_REGEXP }
   validates :password, confirmation: true
 
   before_validation :format_username_to_downcase, :format_email_to_downcase
