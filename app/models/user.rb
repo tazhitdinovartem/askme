@@ -1,8 +1,8 @@
 require 'openssl'
 
 class User < ApplicationRecord
-  EMAIL_VALIDATION_REGEXP = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i;
-  USERNAME_VALIDATION_REGEXP = /\A(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])\z/;
+  EMAIL_VALIDATION_REGEXP = /.+@.+\..+/i;
+  USERNAME_VALIDATION_REGEXP = /\A[a-z0-9_]+\z/;
   ITERATIONS = 20000
   DIGEST = OpenSSL::Digest::SHA256.new
 
