@@ -10,11 +10,12 @@ class User < ApplicationRecord
   
   has_many :questions
 
-  validates :username, presence: true, uniqueness: { case_sensitive: false }, format: { with: USERNAME_VALIDATION_REGEXP }, length: { maximum: 40 }
-  validates :email, presence: true, uniqueness: { case_sensitive: false }, format: { with: EMAIL_VALIDATION_REGEXP }, length: { maximum: 50 }
+  validates :username, presence: true, uniqueness: true, format: { with: USERNAME_VALIDATION_REGEXP }, length: { maximum: 40 }
+  validates :email, presence: true, uniqueness: true, format: { with: EMAIL_VALIDATION_REGEXP }, length: { maximum: 50 }
   validates :password, confirmation: true
 
-  before_save :encrypt_password, :format_username_to_downcase, :format_email_to_downcase
+  before_validation :format_username_to_downcase, :format_email_to_downcase
+  before_save :encrypt_password 
   
   def self.hash_to_string(password_hash)
     password_hash.unpack('H*')[0]
@@ -41,10 +42,14 @@ class User < ApplicationRecord
   private
 
   def format_email_to_downcase
-    self.email.downcase!
+    if self.email != nil
+      self.email.downcase!
+    end
   end
 
   def format_username_to_downcase
+  if self.username != nil
     self.username.downcase!
+  end
   end
 end
