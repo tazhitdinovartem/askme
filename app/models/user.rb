@@ -42,14 +42,10 @@ class User < ApplicationRecord
   private
 
   def format_email_to_downcase
-    if self.email.present?
-      self.email.downcase!
-    end
+    self.email&.downcase!
   end
 
   def format_username_to_downcase
-    if self.username.present?
-      self.username.downcase!
-    end
+    self.username&.downcase!
   end
 end
