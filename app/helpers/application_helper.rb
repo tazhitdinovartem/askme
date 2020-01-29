@@ -21,4 +21,18 @@ module ApplicationHelper
     end
     return result
   end
+
+  def show_answered_questions(questions)
+    result = questions.select do |question|
+      question.answer.present?
+    end
+    result.length
+  end
+
+  def show_not_answered_questions(questions)
+    result = questions.select do |question|
+      !question.answer.present?
+    end
+    result.length
+  end
 end

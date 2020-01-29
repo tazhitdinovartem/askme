@@ -29,8 +29,10 @@ class UsersController < ApplicationController
 
     @questions = [
       Question.new(
+        user: @user,
         text: 'Whats up?',
-        created_at: Date.parse('27.03.2020')
+        created_at: Date.parse('27.03.2020'),
+        answer: 'Everything is cool'
       ),
       Question.new(
         text: 'Whats going on?',
