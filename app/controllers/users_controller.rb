@@ -23,9 +23,11 @@ class UsersController < ApplicationController
   end
 
   def show
-   @questions = @user.questions.order(created_at: :desc)
-
-   @new_question = @user.questions.build
+    @questions = @user.questions.order(created_at: :desc)
+    @new_question = @user.questions.build
+    @questions_count = @questions.length
+    @answered_questions_count = show_answered_questions(@questions)
+    @unanswered_questions_count = show_not_answered_questions(@questions)
   end
 
   def update
@@ -37,6 +39,20 @@ class UsersController < ApplicationController
   end
 
   private
+  def show_answered_questions(questions)
+    result = questions.select do |question|
+      question.answer.present?
+    end
+    result.length
+  end
+
+  def show_not_answered_questions(questions)
+    result = questions.select do |question|
+      !question.answer.present?
+    end
+    result.length
+  end
+  
   def load_user
     @user ||= User.find params[:id]
   end

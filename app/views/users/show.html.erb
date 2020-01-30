@@ -42,11 +42,11 @@
 <div class="column-3-4">
   <div class="user-questions buffer-both">
     <div class="question-amount">
-      Всего <%= inclination(@questions.length, 'вопрос', 'вопроса', 'вопросов') %>
+      Всего <%= inclination(@questions_count, 'вопрос', 'вопроса', 'вопросов') %>
       | отвечено на: 
-      <%= inclination(show_answered_questions(@questions), 'вопрос', 'вопроса', 'вопросов') %>
+      <%= inclination(@answered_questions_count, 'вопрос', 'вопроса', 'вопросов') %>
       | не отвечено на:
-      <%= inclination(show_not_answered_questions(@questions), 'вопрос', 'вопроса', 'вопросов') %>
+      <%= inclination(@unanswered_questions_count, 'вопрос', 'вопроса', 'вопросов') %>
     </div>
     <div class="questions-list">
       <% @questions.each do |question| %>
