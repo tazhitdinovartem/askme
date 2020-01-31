@@ -30,7 +30,7 @@ class UsersController < ApplicationController
     @new_question = @user.questions.build
     @questions_count = @questions.count
     @answered_questions_count = @questions.count(:answer)
-    @unanswered_questions_count = @questions.count - @questions.count(:answer)
+    @unanswered_questions_count = @questions_count - @answered_questions_count
   end
 
   def update
