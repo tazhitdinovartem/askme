@@ -18,7 +18,9 @@ a {
   line-height: 34px;
   float: right;
 }
-
+.header-nav a {
+  margin-left: 20px;
+}
 .header-logo {
   float: left;
 }
@@ -29,7 +31,6 @@ a {
 }
 
 .content {
-  padding: 0 0px;
   color: #2e2f41;
 }
 
@@ -41,4 +42,8 @@ a {
 .flash-alert {
   font-size: 20px;
   color: #dc554f;
+}
+
+.question-amount {
+  padding: 10px 15px 0px;
 }
