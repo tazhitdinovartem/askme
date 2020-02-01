@@ -12,7 +12,7 @@ gem 'puma', '~> 4.1'
 gem 'sass-rails', '>= 6'
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
 gem 'webpacker', '~> 4.0'
-
+gem 'rails_12factor'
 gem 'uglifier'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
