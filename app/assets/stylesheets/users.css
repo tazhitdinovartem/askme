@@ -6,6 +6,7 @@
   padding: 20px 0;
   background: #005a55;
   color: white;
+  margin-top: 20px;
 }
 
 .user-header a {
@@ -52,7 +53,20 @@
   margin-left: 10px;
   background: #D9E6E5;
 }
-
+.header-light {
+  background: #D9E6E5;
+  color: #2e2f41;
+}
+.header-light a {
+  color: #2e2f41;
+}
+.header-dark {
+  background: #2e2f41;
+  color: #D9E6E5;
+}
+.header-dark a {
+  color: #D9E6E5;
+}
 @media (max-width: 960px) {
   .user-question-form {
     margin-left: 0;

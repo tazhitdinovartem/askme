@@ -15,7 +15,7 @@ class User < ApplicationRecord
   validates :password, confirmation: true, presence: true, on: :create
   
   before_validation :format_username_to_downcase, :format_email_to_downcase
-  before_save :encrypt_password
+  before_save :encrypt_password, :set_defaults
   
   def self.hash_to_string(password_hash)
     password_hash.unpack('H*')[0]
@@ -47,5 +47,9 @@ class User < ApplicationRecord
 
   def format_username_to_downcase
     self.username&.downcase!
+  end
+
+  def set_defaults
+    self.header_color ||= 'blue'
   end
 end
