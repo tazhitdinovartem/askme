@@ -64,6 +64,6 @@
         <%= f.submit 'Сохранить', class: 'button button-dark button-small' %>
       </div>
     <% end %>
-    <%= link_to 'Удалить аккаунт', user_path(@user), method: :delete , data: { confirm: 'Вы точно хотите удалить аккаунт?'}%>
+    <%= link_to 'Удалить аккаунт', user_path(@user), method: :delete , class: 'button button-red button-small', data: { confirm: 'Вы точно хотите удалить аккаунт?'}%>
   </div>
 </div>

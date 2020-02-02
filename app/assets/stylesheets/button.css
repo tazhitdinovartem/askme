@@ -7,6 +7,7 @@
   text-shadow: 2px 1px 1px rgba(0, 0, 0, 0.15);
   font-weight: bold;
   border: none;
+  cursor: pointer;
 }
 
 .button-dark {
@@ -28,4 +29,9 @@
   font-size: 15px;
   line-height: 15px;
   padding: 7px 15px;
+}
+
+.button-red {
+  background: tomato;
+  color: #fff;
 }
