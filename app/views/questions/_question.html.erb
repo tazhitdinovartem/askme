@@ -5,14 +5,18 @@
   <div class="question-content">
     <div class="question-text text-lead">
       <%= question.text %>
+
       <div class="question-author">
-        <% if question.author_id != nil %>
+        <% if get_author(question.author_id).present? %>
           <%= 'автор вопроса:' %>
           <%= link_to "#{get_author(question.author_id).name}", user_path(get_author(question.author_id)) %>
-          <% else%>
+        <% elsif question.author_id.present? %>
+          <%= 'аккаунт автора удален' %>
+        <% else %>
           <%= 'анонимный вопрос' %>
         <% end %>
       </div>
+      
     </div>
     
     <% if question.answer.present? %>
