@@ -9,6 +9,10 @@ class QuestionsController < ApplicationController
   def create
     @question = Question.new(question_params)
 
+    if current_user 
+      @question.update(author_id: current_user.id)
+    end
+
     if @question.save
       redirect_to user_path(@question.user), notice: 'Вопрос задан'
     else
