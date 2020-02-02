@@ -17,6 +17,8 @@ class User < ApplicationRecord
   before_validation :format_username_to_downcase, :format_email_to_downcase
   before_save :encrypt_password, :set_defaults
   
+  scope :sorted, -> { order(created_at: :asc) }
+
   def self.hash_to_string(password_hash)
     password_hash.unpack('H*')[0]
   end
