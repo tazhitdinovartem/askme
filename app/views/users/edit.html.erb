@@ -40,9 +40,12 @@
 
       <div class="form-field">
         <%= f.label 'Цветовая тема шапки вашего профиля', class: 'form-label' %>
-        <%= select_tag 'user[header_color]', options_for_select([['Зеленая (по-умолчанию)', 'blue'], ['Светлая', 'light'], ['Темная', 'dark']]) %>
+        <%= f.text_field :header_color, class: 'jscolor form-text-field'%>
+        
       </div>
-
+      <div class="form-field">
+        <%= button_tag 'Вернуть цвет по-умолчанию', id: 'reset_header_color', type: 'button', class: 'button button-dark button-small'%>
+      </div>
       <div class="buffer-top-large buffer-bottom">
         Если не хотите менять пароль — оставьте эти поля пустыми!
       </div>

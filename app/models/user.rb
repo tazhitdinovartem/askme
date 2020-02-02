@@ -50,6 +50,6 @@ class User < ApplicationRecord
   end
 
   def set_defaults
-    self.header_color ||= 'blue'
+    self.header_color ||= '005a55'
   end
 end
