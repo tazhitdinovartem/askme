@@ -1,8 +1,9 @@
 require 'openssl'
 
 class User < ApplicationRecord
-  EMAIL_VALIDATION_REGEXP = /.+@.+\..+/i;
-  USERNAME_VALIDATION_REGEXP = /\A[A-Za-z0-9_]+\z/;
+  EMAIL_VALIDATION_REGEXP = /.+@.+\..+/i
+  USERNAME_VALIDATION_REGEXP = /\A[A-Za-z0-9_]+\z/
+  HEADER_COLOR_VALIDATION = /\A[0-9A-F]{6}\z/
   ITERATIONS = 20000
   DIGEST = OpenSSL::Digest::SHA256.new
 
@@ -13,11 +14,12 @@ class User < ApplicationRecord
   validates :username, presence: true, uniqueness: true, format: { with: USERNAME_VALIDATION_REGEXP }, length: { maximum: 40 }
   validates :email, presence: true, uniqueness: true, format: { with: EMAIL_VALIDATION_REGEXP }
   validates :password, confirmation: true, presence: true, on: :create
+  validates :header_color, format: { with: HEADER_COLOR_VALIDATION }
   
   before_validation :format_username_to_downcase, :format_email_to_downcase
-  before_save :encrypt_password, :set_defaults, :validate_user_header
+  before_save :encrypt_password
   
-  scope :sorted, -> { all.order(created_at: :asc) }
+  scope :sorted, -> { order(created_at: :asc) }
 
   def self.hash_to_string(password_hash)
     password_hash.unpack('H*')[0]
@@ -49,18 +51,5 @@ class User < ApplicationRecord
 
   def format_username_to_downcase
     self.username&.downcase!
-  end
-
-  def set_defaults
-    self.header_color ||= '005a55'
-  end
-
-  def validate_user_header
-    style_reg_exp = /\A[0-9A-Za-z]+\z/
-    if self.header_color.match(style_reg_exp)
-      self.header_color
-    else
-      self.header_color = '005a55'
-    end
   end
 end
