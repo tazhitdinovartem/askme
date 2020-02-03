@@ -7,13 +7,11 @@
       <%= question.text %>
 
       <div class="question-author">
-        <% if get_author(question.author_id).present? %>
-          <%= 'автор вопроса:' %>
-          <%= link_to "#{get_author(question.author_id).name}", user_path(get_author(question.author_id)) %>
-        <% elsif question.author_id.present? %>
-          <%= 'аккаунт автора удален' %>
+        <% if question.author.present? %>
+          автор вопроса:
+          <%= link_to "#{question.author.name}", user_path(question.author) %>
         <% else %>
-          <%= 'анонимный вопрос' %>
+          анонимный вопрос
         <% end %>
       </div>
       
