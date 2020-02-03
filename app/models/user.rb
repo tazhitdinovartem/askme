@@ -15,9 +15,9 @@ class User < ApplicationRecord
   validates :password, confirmation: true, presence: true, on: :create
   
   before_validation :format_username_to_downcase, :format_email_to_downcase
-  before_save :encrypt_password, :set_defaults
+  before_save :encrypt_password, :set_defaults, :validate_user_header
   
-  scope :sorted, -> { order(created_at: :asc) }
+  scope :sorted, -> { all.order(created_at: :asc) }
 
   def self.hash_to_string(password_hash)
     password_hash.unpack('H*')[0]
@@ -53,5 +53,14 @@ class User < ApplicationRecord
 
   def set_defaults
     self.header_color ||= '005a55'
+  end
+
+  def validate_user_header
+    style_reg_exp = /\A[0-9A-Za-z]+\z/
+    if self.header_color.match(style_reg_exp)
+      self.header_color
+    else
+      self.header_color = '005a55'
+    end
   end
 end
