@@ -4,6 +4,7 @@ class User < ApplicationRecord
   EMAIL_VALIDATION_REGEXP = /.+@.+\..+/i
   USERNAME_VALIDATION_REGEXP = /\A[A-Za-z0-9_]+\z/
   HEADER_COLOR_VALIDATION = /\A[0-9A-F]{6}\z/
+  AVATAR_URL_VALIDATION = /\A.+\.(png|jpg)\z/
   ITERATIONS = 20000
   DIGEST = OpenSSL::Digest::SHA256.new
 
@@ -15,6 +16,7 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true, format: { with: EMAIL_VALIDATION_REGEXP }
   validates :password, confirmation: true, presence: true, on: :create
   validates :header_color, format: { with: HEADER_COLOR_VALIDATION }
+  validates :avatar_url, format: { with: AVATAR_URL_VALIDATION }
   
   before_validation :format_username_to_downcase, :format_email_to_downcase
   before_save :encrypt_password
