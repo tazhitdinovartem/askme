@@ -16,7 +16,7 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true, format: { with: EMAIL_VALIDATION_REGEXP }
   validates :password, confirmation: true, presence: true, on: :create
   validates :header_color, format: { with: HEADER_COLOR_VALIDATION }
-  validates :avatar_url, format: { with: AVATAR_URL_VALIDATION }
+  validates :avatar_url, format: { with: AVATAR_URL_VALIDATION }, on: :update
   
   before_validation :format_username_to_downcase, :format_email_to_downcase
   before_save :encrypt_password
