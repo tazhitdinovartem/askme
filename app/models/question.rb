@@ -11,6 +11,7 @@ class Question < ApplicationRecord
 
   after_create :get_hashtags
   after_update :get_hashtags
+  after_destroy :remove_unrelated_hashtags
 
   def get_hashtags
     hashtags.clear
@@ -19,6 +20,10 @@ class Question < ApplicationRecord
     .downcase
     .scan(Hashtag::HASHTAG_REGEXP)
     .uniq
-    .map { |hashtag| Hashtag.find_or_create_by(name: hashtag) }
+    .each { |hashtag| hashtags << Hashtag.find_or_create_by(name: hashtag) }
+  end
+
+  def remove_unrelated_hashtags
+    Hashtag.includes(:questions).where(questions: { id: nil }).destroy_all
   end
 end
