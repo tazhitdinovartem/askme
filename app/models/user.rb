@@ -30,6 +30,10 @@ class User < ApplicationRecord
   def normalize_friendly_id(text)
     text.to_slug.transliterate(:russian).normalize.to_s
   end
+
+  def should_generate_new_friendly_id?
+    slug.blank? || username_changed?
+  end
   
   def self.hash_to_string(password_hash)
     password_hash.unpack('H*')[0]
