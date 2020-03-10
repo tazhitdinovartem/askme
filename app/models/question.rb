@@ -19,6 +19,6 @@ class Question < ApplicationRecord
     .downcase
     .scan(Hashtag::HASHTAG_REGEXP)
     .uniq
-    .map { |hashtag| hashtags << Hashtag.find_or_create_by(name: hashtag) }
+    .map { |hashtag| Hashtag.find_or_create_by(name: hashtag) }
   end
 end
