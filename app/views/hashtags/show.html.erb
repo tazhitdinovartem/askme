@@ -4,7 +4,7 @@
       Вопросы с тегом <%= @hashtag.name %>
     </h1>
     <% @hashtag.questions.each do |q| %>
-      <%= render partial: 'questions/question', object: q %>
+      <%= render partial: 'hashtags/question', object: q %>
     <% end %>
   </div>
 </div>
