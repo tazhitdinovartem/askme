@@ -3,6 +3,7 @@ require 'babosa'
 
 class User < ApplicationRecord
   extend FriendlyId
+  friendly_id :username, use: :slugged
 
   EMAIL_VALIDATION_REGEXP = /.+@.+\..+/i
   USERNAME_VALIDATION_REGEXP = /\A[A-Za-z0-9_]+\z/
@@ -25,8 +26,6 @@ class User < ApplicationRecord
   before_save :encrypt_password
   
   scope :sorted, -> { order(created_at: :asc) }
-
-  friendly_id :username, use: :slugged
 
   def normalize_friendly_id(text)
     text.to_slug.transliterate(:russian).normalize.to_s
