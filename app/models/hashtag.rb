@@ -8,6 +8,10 @@ class Hashtag < ApplicationRecord
     text.to_slug.transliterate(:russian).normalize.to_s
   end
 
+  def should_generate_new_friendly_id?
+    name_changed?
+  end
+
   HASHTAG_REGEXP = /#[[:word:]-]+/
 
   has_many :hashtag_questions

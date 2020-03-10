@@ -8,7 +8,7 @@ class User < ApplicationRecord
   EMAIL_VALIDATION_REGEXP = /.+@.+\..+/i
   USERNAME_VALIDATION_REGEXP = /\A[A-Za-z0-9_]+\z/
   HEADER_COLOR_VALIDATION = /\A[0-9A-F]{6}\z/
-  AVATAR_URL_VALIDATION = /\A.+\.(png|jpg)\z/
+  AVATAR_URL_VALIDATION = /(^$|\A.+\.(png|jpg)\z)/
   ITERATIONS = 20000
   DIGEST = OpenSSL::Digest::SHA256.new
 
@@ -32,7 +32,7 @@ class User < ApplicationRecord
   end
 
   def should_generate_new_friendly_id?
-    slug.blank? || username_changed?
+    username_changed?
   end
   
   def self.hash_to_string(password_hash)
