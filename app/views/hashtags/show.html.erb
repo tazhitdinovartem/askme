@@ -1,0 +1,10 @@
+ <div class="buffer-top"> 
+  <div class="user-questions hastags-container">
+    <h1>
+      Вопросы с тегом <%= @hashtag.name %>
+    </h1>
+    <% @hashtag.questions.each do |q| %>
+      <%= render partial: 'questions/question', object: q %>
+    <% end %>
+  </div>
+</div>

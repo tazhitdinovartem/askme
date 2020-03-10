@@ -33,6 +33,7 @@
   border-top: 1px solid #D9E6E5;
   text-align: right;
   padding: 10px 15px;
+  margin-top: 10px;
 }
 
 .question-actions a {
@@ -50,5 +51,24 @@
   text-decoration: underline;
 }
 .question-author a:hover {
+  text-decoration: none;
+}
+.question-in-hashtags {
+  margin: 10px 0 0;
+}
+
+.hastags-container h1 {
+  padding: 10px;
+  background: #D9E6E5;
+}
+.all-hashtags-block {
+  text-align: center;
+  padding: 20px 0 20px;
+}
+.all-hashtags-block a, .question-in-hashtags a {
+  margin-right: 5px;
+  text-decoration: underline;
+}
+.all-hashtags-block a:hover, .question-in-hashtags a:hover {
   text-decoration: none;
 }

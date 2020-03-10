@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   before_action :authorize_user, except: [:index, :new, :create, :show]
   def index
     @users = User.sorted
+    @hashtags = Hashtag.all
   end
 
   def new

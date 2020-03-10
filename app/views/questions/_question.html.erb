@@ -18,16 +18,24 @@
     </div>
     
     <% if question.answer.present? %>
-    <div class="question-answer text-lead">
-      <%= question.answer if question.answer.present? %>
-    </div>
+      <div class="question-answer text-lead">
+        <%= question.answer if question.answer.present? %>
+      </div>
     <% end %>
 
     <div class="question-date">
       <%= l(question.created_at, format: :short) %>
     </div>
-  </div>
 
+    <% if question.hashtags %>
+      <div class="question-in-hashtags">
+        <% question.hashtags.each do |hashtag| %>
+          <%= link_to hashtag.name, hashtag_path(hashtag) %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+  
   <% if question.user == current_user %>
     <div class="question-actions">
       <%= link_to fa_icon(action_icon), edit_question_path(question) %>
