@@ -1,5 +1,5 @@
 class HashtagsController < ApplicationController
   def show
-    @hashtag = Hashtag.find(params[:id])
+    @hashtag = Hashtag.friendly.find(params[:id])
   end
 end

@@ -1,4 +1,5 @@
 require 'openssl'
+require 'babosa'
 
 class User < ApplicationRecord
   extend FriendlyId
@@ -27,6 +28,10 @@ class User < ApplicationRecord
 
   friendly_id :username, use: :slugged
 
+  def normalize_friendly_id(text)
+    text.to_slug.transliterate(:russian).normalize.to_s
+  end
+  
   def self.hash_to_string(password_hash)
     password_hash.unpack('H*')[0]
   end
