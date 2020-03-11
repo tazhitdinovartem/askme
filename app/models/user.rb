@@ -25,7 +25,7 @@ class User < ApplicationRecord
   
   scope :sorted, -> { order(username: :asc) }
 
-  friendly_id :username, use: :slugged
+  friendly_id :username, use: [:slugged, :history]
 
   def self.hash_to_string(password_hash)
     password_hash.unpack('H*')[0]

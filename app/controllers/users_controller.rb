@@ -37,6 +37,7 @@ class UsersController < ApplicationController
   end
 
   def update
+    @user.slug = nil
     if @user.update(user_params)
       redirect_to user_path(@user), notice: "Данные успешно обновлены." 
     else
@@ -51,7 +52,7 @@ class UsersController < ApplicationController
   end
 
   private
-  
+
   def authorize_user
     reject_user unless @user == current_user  
   end
