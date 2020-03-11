@@ -54,9 +54,9 @@ class User < ApplicationRecord
   end
 
   def should_generate_new_friendly_id?
-    username_changed?
+    true
   end
-  
+
   private
 
   def format_email_to_downcase

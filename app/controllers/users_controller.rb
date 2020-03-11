@@ -37,7 +37,6 @@ class UsersController < ApplicationController
   end
 
   def update
-    @user.slug = nil
     if @user.update(user_params)
       redirect_to user_path(@user), notice: "Данные успешно обновлены." 
     else
@@ -58,7 +57,7 @@ class UsersController < ApplicationController
   end
 
   def load_user
-    @user ||= User.friendly.find(params[:id])
+    @user = User.friendly.find(params[:id])
   end
 
   def user_params
