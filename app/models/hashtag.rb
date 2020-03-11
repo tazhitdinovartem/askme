@@ -1,7 +1,15 @@
-require 'babosa'
-
 class Hashtag < ApplicationRecord
   extend FriendlyId
+  
+  HASHTAG_REGEXP = /#[[:word:]-]+/
+
+  validates :name, presence: true, uniqueness: true
+
+  has_many :hashtag_questions
+  has_many :questions, through: :hashtag_questions
+  
+  scope :sorted, -> { order(name: :asc) }
+
   friendly_id :name, use: :slugged
 
   def normalize_friendly_id(text)
@@ -11,10 +19,4 @@ class Hashtag < ApplicationRecord
   def should_generate_new_friendly_id?
     name_changed?
   end
-
-  HASHTAG_REGEXP = /#[[:word:]-]+/
-
-  has_many :hashtag_questions
-  has_many :questions, through: :hashtag_questions
-  validates :name, presence: true, uniqueness: true
 end

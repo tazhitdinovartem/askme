@@ -1,40 +1,32 @@
 require 'openssl'
-require 'babosa'
 
 class User < ApplicationRecord
   extend FriendlyId
-  friendly_id :username, use: :slugged
 
   EMAIL_VALIDATION_REGEXP = /.+@.+\..+/i
   USERNAME_VALIDATION_REGEXP = /\A[A-Za-z0-9_]+\z/
   HEADER_COLOR_VALIDATION = /\A[0-9A-F]{6}\z/
-  AVATAR_URL_VALIDATION = /(^$|\A.+\.(png|jpg)\z)/
+  AVATAR_URL_VALIDATION = /(https?:\/\/.*\.(?:png|jpg|webp|gif))/
   ITERATIONS = 20000
   DIGEST = OpenSSL::Digest::SHA256.new
 
   attr_accessor :password
-  
-  has_many :questions, dependent: :destroy
 
   validates :username, presence: true, uniqueness: true, format: { with: USERNAME_VALIDATION_REGEXP }, length: { maximum: 40 }
   validates :email, presence: true, uniqueness: true, format: { with: EMAIL_VALIDATION_REGEXP }
   validates :password, confirmation: true, presence: true, on: :create
   validates :header_color, format: { with: HEADER_COLOR_VALIDATION }
-  validates :avatar_url, format: { with: AVATAR_URL_VALIDATION }, on: :update
+  validates :avatar_url, format: { with: AVATAR_URL_VALIDATION }, on: :update, allow_blank: true
+  
+  has_many :questions, dependent: :destroy
   
   before_validation :format_username_to_downcase, :format_email_to_downcase
   before_save :encrypt_password
   
-  scope :sorted, -> { order(created_at: :asc) }
+  scope :sorted, -> { order(username: :asc) }
 
-  def normalize_friendly_id(text)
-    text.to_slug.transliterate(:russian).normalize.to_s
-  end
+  friendly_id :username, use: :slugged
 
-  def should_generate_new_friendly_id?
-    username_changed?
-  end
-  
   def self.hash_to_string(password_hash)
     password_hash.unpack('H*')[0]
   end
@@ -57,6 +49,14 @@ class User < ApplicationRecord
     end
   end
 
+  def normalize_friendly_id(text)
+    text.to_slug.transliterate(:russian).normalize.to_s
+  end
+
+  def should_generate_new_friendly_id?
+    username_changed?
+  end
+  
   private
 
   def format_email_to_downcase
