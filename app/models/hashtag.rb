@@ -5,7 +5,7 @@ class Hashtag < ApplicationRecord
 
   validates :name, presence: true, uniqueness: true
 
-  has_many :hashtag_questions
+  has_many :hashtag_questions, dependent: :destroy
   has_many :questions, through: :hashtag_questions
   
   scope :sorted, -> { order(name: :asc) }
